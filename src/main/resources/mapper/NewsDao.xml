@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.gdjz.dao.INewsDao">
+    <select id="insertNews" parameterType="News">
+        insert into news(mainPicture, title, content, summary, createDate, updateDate) values
+        (#{mainPicture},#{title}, #{content}, #{summary}, #{createDate}, #{updateDate})
+    </select>
+
+    <select id="deleteNews" parameterType="int">
+        delete from news where id = #{id}
+    </select>
+
+    <select id="updateNews" parameterType="News">
+        update news set title = #{title}, mainPicture = #{mainPicture}, content = #{content},
+        summary = #{summary}, updateDate = #{updateDate} where id = #{id}
+    </select>
+
+    <select id="getNews" parameterType="String" resultType="News">
+        select * from news where title = #{title}
+    </select>
+
+    <select id="listAllNews" resultType="News">
+        select * from news
+    </select>
+
+    <select id="getNewsById" resultType="News" parameterType="int">
+        select * from news where id = #{id}
+    </select>
+
+    <select id="listNewsByTitle" parameterType="String" resultType="News">
+        select * from news where title like concat(concat('%', #{title}, '%'))
+    </select>
+
+    <select id="listTopTwoNews" resultType="News">
+        select * from news order by updateDate desc limit 2
+    </select>
+</mapper>

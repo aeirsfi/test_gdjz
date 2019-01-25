@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.gdjz.dao.IUserDao">
+
+    <select id="selectUser" resultType="User" parameterType="int">
+        SELECT * FROM user WHERE id = #{id}
+    </select>
+
+    <select id="login" resultType="User">
+        SELECT * FROM user WHERE username = #{username, jdbcType=VARCHAR} and password = #{password, jdbcType=VARCHAR}
+    </select>
+
+    <select id="listAllUser" resultType="User">
+        SELECT * FROM user
+    </select>
+
+    <select id="getUser" parameterType="String" resultType="User">
+        select * from user where username = #{username}
+    </select>
+
+    <select id="insertUser" parameterType="User">
+        insert into user(username, password, note, createDate, updateDate) values
+        (#{username}, #{password}, #{note}, #{createDate}, #{updateDate})
+    </select>
+
+    <select id="getUserById" parameterType="int" resultType="User">
+        select * from user where id = #{id}
+    </select>
+
+    <select id="updateUser" parameterType="User">
+        update user
+        <set>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="note != null">
+                note = #{note},
+            </if>
+            <if test="updateDate != null">
+                updateDate = #{updateDate},
+            </if>
+        </set>
+        where id = #{id}
+    </select>
+
+    <select id="deleteUser" parameterType="int">
+        delete from user where id = #{id}
+    </select>
+
+    <select id="listUser" parameterType="String" resultType="User">
+        select * from user where username like concat(concat('%',#{username},'%'))
+    </select>
+
+    <select id="updatePassword" parameterType="User">
+        update user set password = #{password} where id = #{id}
+    </select>
+</mapper>

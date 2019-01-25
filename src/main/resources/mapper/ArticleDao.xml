@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.gdjz.dao.IArticleDao">
+    <select id="insertArticle" parameterType="Article">
+        insert into article(title, content, summary, createDate, updateDate) values
+        (#{title},#{content}, #{summary}, #{createDate}, #{updateDate})
+    </select>
+
+    <select id="getArticle" parameterType="String" resultType="Article">
+        select * from article where title = #{title}
+    </select>
+
+    <select id="deleteArticle" parameterType="int">
+        delete from article where id = #{id}
+    </select>
+
+    <select id="updateArticle" parameterType="Article">
+        update article set title = #{title}, content = #{content}, summary = #{summary},
+        createDate = #{createDate}, updateDate = #{updateDate} where id = #{id}
+    </select>
+
+    <select id="listArticle" parameterType="String" resultType="Article">
+        select * from article where title like concat(concat('%',#{keyword},'%'))
+    </select>
+
+    <select id="listAllArticle" resultType="Article">
+        select * from article
+    </select>
+
+    <select id="getArticleById" parameterType="int" resultType="Article">
+        select * from article where id = #{id}
+    </select>
+</mapper>

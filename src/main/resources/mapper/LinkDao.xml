@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.gdjz.dao.ILinkDao">
+    <select id="insertLink" parameterType="Link">
+        insert into link(name, url, note, createDate, updateDate) values
+        (#{name},#{url}, #{note}, #{createDate}, #{updateDate})
+    </select>
+
+    <select id="deleteLink" parameterType="int">
+        delete from link where id = #{id}
+    </select>
+
+    <select id="updateLink" parameterType="Link">
+        update link set name = #{name}, url = #{url}, note = #{note},
+        updateDate = #{updateDate} where id = #{id}
+    </select>
+
+    <select id="getLink" parameterType="String" resultType="Link">
+        select * from link where name = #{name}
+    </select>
+
+    <select id="listAllLink" resultType="Link">
+        select * from link
+    </select>
+
+    <select id="listLinkByName" resultType="Link" parameterType="String">
+        select * from link where name like concat(concat('%',#{name},'%'))
+    </select>
+
+    <select id="getLinkById" parameterType="int" resultType="Link">
+        select * from link where id = #{id}
+    </select>
+</mapper>

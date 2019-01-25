@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.gdjz.dao.IPictureDao">
+    <select id="insertPicture" parameterType="Picture">
+        insert into picture(name, url, note, position, createDate, updateDate) values
+        (#{name}, #{url}, #{note}, #{position}, #{createDate}, #{updateDate})
+    </select>
+
+    <select id="deletePicture" parameterType="int">
+        delete from picture where id = #{id}
+    </select>
+
+    <select id="updatePicture" parameterType="Picture">
+        update picture set name = #{name}, url = #{url}, note = #{note}, position = #{position},
+         updateDate = #{updateDate} where id = #{id}
+    </select>
+
+    <select id="getPictureByPosition" parameterType="String" resultType="Picture">
+        select * from picture where position = #{position}
+    </select>
+
+    <select id="getPictureById" parameterType="int" resultType="Picture">
+        select * from picture where id = #{id}
+    </select>
+
+    <select id="listAllPicture" resultType="Picture">
+        select * from picture
+    </select>
+
+    <select id="listPictureByPostion" resultType="Picture" parameterType="String">
+        select * from picture where position like concat(concat('%',#{position},'%'))
+    </select>
+</mapper>
